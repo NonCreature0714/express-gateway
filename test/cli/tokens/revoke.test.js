@@ -4,7 +4,7 @@ const app = require('../../oauth/bootstrap');
 const environment = require('../../fixtures/cli/environment');
 const adminHelper = require('../../common/admin-helper')();
 const namespace = 'express-gateway:tokens:revoke';
-const idGen = require('uuid-base62');
+const idGen = require('uuid62');
 const authService = require('../../../lib/services').auth;
 
 describe('eg tokens revoke', () => {
@@ -24,10 +24,10 @@ describe('eg tokens revoke', () => {
     })
       .then(createdUser => {
         user = createdUser;
-        return adminHelper.admin.credentials.create(user.username, 'oauth2', {secret: 'test'});
+        return adminHelper.admin.credentials.create(user.username, 'oauth2', { secret: 'test' });
       })
       .then(createdCred => {
-      // cred = createdCred;
+        // cred = createdCred;
         return request(app)
           .post('/oauth2/token')
           .set('Authorization', 'basic ' + (Buffer.from(user.username + ':test').toString('base64')))
